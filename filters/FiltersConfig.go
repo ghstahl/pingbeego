@@ -13,9 +13,10 @@ import (
     "filters":
     [
         {
-            "filter":"UserFilterFunc",
-            "pattern":"*",
-            "position":"beego.AfterStatic"
+          	"struct":"UserFilterType",
+			"pattern":"*",
+			"position":"beego.AfterStatic"
+
         }
     ]
 }
@@ -25,8 +26,8 @@ func init() {
 }
 
 type FilterType struct {
-	Filter     string
-	Pattern string
+	Struct		string
+	Pattern 	string
 	Position    string
 }
 type FilterConfigJsonObject struct {
@@ -41,8 +42,10 @@ type FilterConfigs struct{
 var TheFilterConfigs = &FilterConfigs{
 
 }
-func (this *FilterConfigs) initialize() {
-	this.beegoFilterPositionLookup = map[string]int{
+
+func init() {
+	fmt.Println("FiltersConfig.Init")
+	TheFilterConfigs.beegoFilterPositionLookup = map[string]int{
 		"beego.BeforeRouter":beego.BeforeRouter,
 		"beego.AfterStatic":beego.AfterStatic,
 		"beego.BeforeExec":beego.BeforeExec,
@@ -50,6 +53,8 @@ func (this *FilterConfigs) initialize() {
 		"beego.FinishRouter":beego.FinishRouter,
 	}
 }
+
+
 func (this *FilterConfigs) loadJsonConfig() {
 	file, e := ioutil.ReadFile("conf/filterconfigs.json")
 	if e != nil {
@@ -62,14 +67,12 @@ func (this *FilterConfigs) loadJsonConfig() {
 }
 
 func (this *FilterConfigs) Load() {
-	this.initialize()
 	this.loadJsonConfig()
 
 	for _,item:= range this.Config.Filters{
 		position := this.beegoFilterPositionLookup[item.Position]
 		fmt.Println(fmt.Sprintf("item: %v position: %v",item,position))
-		theFilterFunc := TheFilterRepository.Repository[item.Filter]
-//		theFilterFunc := TheFilterRepository.FetchFilterFunc(item.Filter)
+		theFilterFunc := FetchFilterFunc(item.Struct)
 		beego.InsertFilter(item.Pattern, position, theFilterFunc)
 	}
 }
