@@ -47,9 +47,7 @@ func init() {
 	fmt.Println("FiltersConfig.Init")
 	TheFilterConfigs.beegoFilterPositionLookup = map[string]int{
 		"beego.BeforeRouter":beego.BeforeRouter,
-		"beego.AfterStatic":beego.AfterStatic,
 		"beego.BeforeExec":beego.BeforeExec,
-		"beego.AfterExec":beego.AfterExec,
 		"beego.FinishRouter":beego.FinishRouter,
 	}
 }
