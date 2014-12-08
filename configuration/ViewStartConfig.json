@@ -1,0 +1,14 @@
+{
+    "ViewStartTypes":
+        [
+            {
+                "Name":"Primary",
+                "TplNames":"index.tpl",
+                "SharedHead":"shared/_head.tpl",
+                "Header":"shared/_header.tpl",
+                "Footer":"shared/_footer.tpl",
+                "HtmlHead":"index.htmlhead.tpl",
+                "Layout":"shared/_layout.tpl"
+            }
+        ]
+}
