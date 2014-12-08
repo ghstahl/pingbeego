@@ -13,7 +13,6 @@ import (
         [
             {
                 "Name":"Primary",
-                "TplNames":"index.tpl",
                 "SharedHead":"shared/_head.tpl",
                 "Header":"shared/_header.tpl",
                 "Footer":"shared/_footer.tpl",
@@ -27,7 +26,6 @@ import (
 
 type ViewStartType struct {
 	Name string
-	TplNames string
 	SharedHead string
 	Header 	string
 	Footer 	string
