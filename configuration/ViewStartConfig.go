@@ -42,7 +42,7 @@ type ViewStartConfigJsonObject struct {
 
 type ViewStartConfigs struct{
 	Config ViewStartConfigJsonObject
-	ViewStartConfigLookup  map[string]string
+	ViewStartConfigMap  map[string]*ViewStartType
 }
 
 var TheViewStartConfigs = &ViewStartConfigs{
@@ -51,12 +51,8 @@ var TheViewStartConfigs = &ViewStartConfigs{
 
 func init() {
 	fmt.Println("configuration.Init")
-	TheViewStartConfigs.ViewStartConfigLookup = map[string]string{
-		"a":"a",
-		"b":"b",
-		"c":"c",
+	TheViewStartConfigs.ViewStartConfigMap = map[string]*ViewStartType{
 	}
-	fmt.Printf("ViewStartConfigLookup: %v\n", TheViewStartConfigs.ViewStartConfigLookup)
 }
 
 
@@ -73,9 +69,12 @@ func (this *ViewStartConfigs) loadJsonConfig() {
 }
 
 func (this *ViewStartConfigs) Load() {
+	fmt.Printf("ViewStart Configuration Load\n")
 	this.loadJsonConfig()
-	fmt.Println(fmt.Sprintf("item: %v",this.ViewStartConfigLookup))
+
 	for _,item:= range this.Config.ViewStartTypes{
+		this.ViewStartConfigMap[item.Name] = &item
 		fmt.Println(fmt.Sprintf("item: %v",item))
 	}
+	fmt.Printf("ViewStartConfigLookup: %v\n", TheViewStartConfigs.ViewStartConfigMap)
 }

@@ -9,11 +9,19 @@ import (
 
 /*
 {
-    "KeyValueConfig":
+    "KeyValues":
     [
-          {
-            "key":"key1",
-            "value":"value1"
+        {
+            "Key":"key1",
+            "Value":"value1"
+        },
+        {
+            "Key":"key2",
+            "Value":"value2"
+        },
+        {
+            "Key":"key3",
+            "Value":"value3"
         }
     ]
 }
@@ -26,7 +34,7 @@ type KeyValueType struct {
 }
 
 type KeyValueConfigJsonObject struct {
-	KeyValueConfig   []KeyValueType
+	KeyValues   []KeyValueType
 }
 
 type KeyValueConfigs struct{
@@ -61,9 +69,10 @@ func (this *KeyValueConfigs) loadJsonConfig() {
 }
 
 func (this *KeyValueConfigs) Load() {
+	fmt.Printf("KeyValueConfigs Configuration Load\n")
 	this.loadJsonConfig()
 	fmt.Println(fmt.Sprintf("item: %v",this.KeyValueConfigLookup))
-	for _,item:= range this.Config.KeyValueConfig{
+	for _,item:= range this.Config.KeyValues{
 		fmt.Println(fmt.Sprintf("item: %v",item))
 	}
 }
