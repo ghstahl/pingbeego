@@ -49,6 +49,7 @@ func init() {
 		"beego.BeforeRouter":beego.BeforeRouter,
 		"beego.BeforeExec":beego.BeforeExec,
 		"beego.FinishRouter":beego.FinishRouter,
+		"beego.BeforeStatic":beego.BeforeStatic,
 	}
 }
 
@@ -65,6 +66,7 @@ func (this *FilterConfigs) loadJsonConfig() {
 }
 
 func (this *FilterConfigs) Load() {
+	fmt.Printf("beegoFilterPositionLookup:%v\n",this.beegoFilterPositionLookup)
 	this.loadJsonConfig()
 
 	for _,item:= range this.Config.Filters{
