@@ -5,8 +5,10 @@ import (
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/ghstahl/pingbeego/reflection"
+	"github.com/ghstahl/pingbeego/contextmanager"
 	"reflect"
  	"code.google.com/p/go-uuid/uuid"
+	"github.com/jtolds/gls"
 )
 
 type RequestIdFilterType struct {
@@ -16,11 +18,11 @@ func (v RequestIdFilterType) FilterFunc() beego.FilterFunc{
 	return func(ctx *context.Context) {
 		fmt.Println(fmt.Sprintf(">>>>>>>>>>>>>>RequestIdFilterType Enter"))
 		requestId := uuid.New();
-		fmt.Println(fmt.Sprintf("$$$$$$$$$$$$$$$ %v $$$$$$$$$$$$$$$",requestId))
-
-		ctx.Input.Data[WellKnown.RequestId] = requestId
+		ctx.Input.Data[WellKnown.RequestId] = requestId;
+		contextmanager.WellKnown.ContextManager.SetValues(gls.Values{contextmanager.WellKnown.BeegoContextKey: ctx}, func() {});
+		fmt.Println(fmt.Sprintf("$$$$$$$$$$$$$$$ %v $$$$$$$$$$$$$$$",ctx.Input.Data[WellKnown.RequestId]))
+//		ctx.Input.Data[WellKnown.RequestId] = requestId
 	}
-
 }
 
 func GetCurrentRequestId(ctx *context.Context) string {
