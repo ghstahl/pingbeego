@@ -1,4 +1,4 @@
-package filters
+package filterInfrastructure
 
 import (
 	"github.com/astaxie/beego"

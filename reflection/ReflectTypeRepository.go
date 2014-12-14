@@ -4,6 +4,14 @@ this is a parking lot for types that we later want to reference through reflecti
 we need to put these things here because the GO compiler will optimize out unused code, but since we are going to configure
 in use of the code, we need to tell GO to keep this stuff in here.
 
+usage:
+
+func init() {
+	var x RequestIdFilterType
+	reflection.TheReflectRepository.ValueRepository["RequestIdFilterType"] = reflect.ValueOf(x)
+	reflection.TheReflectRepository.TypeRepository["RequestIdFilterType"] = reflect.TypeOf(x)
+}
+
  */
 import (
 	"fmt"
